@@ -7,7 +7,7 @@ import {Compiler} from '../index.js';
 
 describe ('Compiler', () => {
   describe ('transform()', () => {
-    it ('transforms ES2016 to ES2015', () => {
+    it ('transforms ES6 to ES5', () => {
       const compiler = new Compiler ();
       const source = 'const getMessage = () => "hello";';
       const result = compiler.transform (source);
@@ -19,7 +19,7 @@ describe ('Compiler', () => {
         '};');
     });
 
-    it ('JSX produces ES2015 output', () => {
+    it ('JSX produces ES5 output', () => {
       const compiler = new Compiler ();
       const source = 'const element = <div>hello</div>';
       const result = compiler.transform (source);

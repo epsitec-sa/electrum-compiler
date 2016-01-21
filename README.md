@@ -4,18 +4,21 @@
 [![Build Status](https://travis-ci.org/epsitec-sa/electrum-compiler.svg?branch=master)](https://travis-ci.org/epsitec-sa/electrum-compiler)
 [![Build status](https://ci.appveyor.com/api/projects/status/olcw73cohae726aw?svg=true)](https://ci.appveyor.com/project/epsitec/electrum-compiler)
 
-This is a run-time compiler for Electrum-enabled React components, based on
-**Babel** and relying on [babel-standalone](https://github.com/Daniel15/babel-standalone).
+This is a run-time compiler for [Electrum](https://github.com/epsitec-sa/electrum)-enabled
+React components, based on **Babel**.
+It is relying on [babel-standalone](https://github.com/Daniel15/babel-standalone)
+for the real work and provides additional logic to build live React components
+directly from source code.
 
 # The Compiler class
 
-## Transform JavaScript to ES2015
+## Transform JavaScript to ES5
 
 ```javascript
 let input = 'const greet = x => `Hello ${x}.`;';
 let compiler = new Compiler ();
 let source = compiler.transform (input);
-// ES2015 compatible source
+// ES5 compatible source
 ```
 
 ## Build Electrum-enabled React component
