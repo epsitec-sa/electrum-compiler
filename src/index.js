@@ -1,9 +1,5 @@
 'use strict';
 
-import Electrum from 'electrum';
+import Compiler from './compiler.js';
 
-export class Compiler {
-  compile (source) {
-    return null;
-  }
-}
+export {Compiler};
