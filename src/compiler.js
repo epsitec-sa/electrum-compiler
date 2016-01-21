@@ -18,49 +18,63 @@ const Babel = {
 /******************************************************************************/
 
 export default class Compiler {
+  constructor () {
+    this._items = {};
+  }
+
   transform (source) {
-    try {
-      const result = Babel.transform (source, {
-        presets: ['stage-0', 'es2015', 'react']
-      });
-      return result.code;
-    } catch (e) {
-      console.error (e.message);
-    }
+    const result = Babel.transform (source, {
+      presets: ['stage-0', 'es2015', 'react']
+    });
+    return result.code;
   }
 
   build (name, source) {
     var Electrum = imports.Electrum;
     var React = imports.React;
+    var components = this._items;
     var sourceVar =
+      components.justToMakeSureThisDoesNotGetOptimizedAway ||
       Electrum.justToMakeSureThisDoesNotGetOptimizedAway ||
       React.justToMakeSureThisDoesNotGetOptimizedAway ||
-      'var foo = \'FOO\';';
+      '';
+
+    for (let key of Object.keys (components)) {
+      sourceVar = sourceVar + `const ${key} = components.${key};`;
+    }
 
     try {
-      const input  = `${sourceVar}\nElectrum.wrap ("${name}", (${source}));\n`;
+      // In this scope, we need Electrum, React, components and sourceVar.
+      // They are referenced from within the source code passed to eval and
+      // must therefore exist in the scope.
+      const input  = `${sourceVar}Electrum.wrap ("${name}", (\n${source}));`;
       const output = this.transform (input);
       const result = eval (output); // jshint ignore:line
       return {
-        code: output,
-        component: result
+        name: name,
+        component: result,
+        code: output
       };
     } catch (e) {
-      if (e instanceof SyntaxError) {
-        console.error (e.message);
+      if (e instanceof SyntaxError || e instanceof TypeError) {
         return {
-          error: e.message
+          error: e.message,
+          name: name
         };
-      } else if (e instanceof TypeError) {
-        console.error (e.message);
-        return {
-          error: e.message
-        };
-      } else {
-        throw e;
       }
+      throw e;
     }
-    return null;
+  }
+
+  register (item) {
+    if (typeof item === 'function') {
+      this._items[item.name] = item;
+    } else if (typeof item === 'string' &&
+        arguments.length === 2) {
+      this._items[item] = arguments[1];
+    } else {
+      throw new Error ('Invalid arguments');
+    }
   }
 }
 
