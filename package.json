@@ -1,0 +1,33 @@
+{
+  "name": "electrum-compiler",
+  "version": "1.0.0",
+  "description": "Run-time compiler for Electrum-enabled React components.",
+  "main": "lib/index.js",
+  "scripts": {
+    "compile": "rimraf ./lib && babel -d lib src",
+    "prepublish": "npm run compile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epsitec-sa/electrum-compiler.git"
+  },
+  "author": "Epsitec SA",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epsitec-sa/electrum-compiler/issues"
+  },
+  "homepage": "https://github.com/epsitec-sa/electrum-compiler#readme",
+  "peerDependencies": {
+    "electrum": "^2.7.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.2.4",
+    "babel-preset-stage-0": "^6.2.4",
+    "rimraf": "^2.5.0",
+    "webpack": "^1.12.11"
+  }
+}
