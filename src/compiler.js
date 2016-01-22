@@ -68,6 +68,31 @@ ${source}));`;
     }
   }
 
+
+  eval (source) {
+    var Electrum = imports.Electrum;
+    var React = imports.React;
+    var components = this._items;
+    var sourceVar =
+      components.justToMakeSureThisDoesNotGetOptimizedAway ||
+      Electrum.justToMakeSureThisDoesNotGetOptimizedAway ||
+      React.justToMakeSureThisDoesNotGetOptimizedAway ||
+      '';
+
+    for (let key of Object.keys (components)) {
+      sourceVar = sourceVar + `const ${key} = components.${key};`;
+    }
+
+    // In this scope, we need Electrum, React, components and sourceVar.
+    // They are referenced from within the source code passed to eval and
+    // must therefore exist in the scope.
+    const input  = `${sourceVar}(
+${source});`;
+    const output = this.transform (input);
+    const result = eval (output); // jshint ignore:line
+    return result;
+  }
+
   register (item) {
     if (typeof item === 'function') {
       this._items[item.name] = item;

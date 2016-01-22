@@ -77,3 +77,15 @@ compiler.register ('y', {b: 2});
 expect (compiler.catalog.x).to.have.property ('a', 1);
 expect (compiler.catalog.y).to.have.property ('b', 2);
 ```
+
+## Evaluating an expression
+
+The compiler also includes an ES6/JSX compatible version of `eval()` which
+can be used to evaluate expressions:
+
+```javascript
+let compiler = new Compiler ();
+
+expect (compiler.eval ('2 + 3')).to.equal (5);
+expect (compiler.eval ('<div></div>')).to.equalJSX (<div />);
+```
