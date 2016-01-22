@@ -1,6 +1,6 @@
 {
   "name": "electrum-compiler",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Run-time compiler for Electrum-enabled React components.",
   "main": "lib/index.js",
   "scripts": {

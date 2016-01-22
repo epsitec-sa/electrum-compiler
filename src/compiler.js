@@ -20,6 +20,7 @@ const Babel = {
 export default class Compiler {
   constructor () {
     this._items = {};
+    this._catalog = null;
   }
 
   transform (source) {
@@ -47,7 +48,8 @@ export default class Compiler {
       // In this scope, we need Electrum, React, components and sourceVar.
       // They are referenced from within the source code passed to eval and
       // must therefore exist in the scope.
-      const input  = `${sourceVar}Electrum.wrap ("${name}", (\n${source}));`;
+      const input  = `${sourceVar}Electrum.wrap ("${name}", (
+${source}));`;
       const output = this.transform (input);
       const result = eval (output); // jshint ignore:line
       return {
@@ -69,12 +71,22 @@ export default class Compiler {
   register (item) {
     if (typeof item === 'function') {
       this._items[item.name] = item;
+      this._catalog = null;
     } else if (typeof item === 'string' &&
         arguments.length === 2) {
       this._items[item] = arguments[1];
+      this._catalog = null;
     } else {
       throw new Error ('Invalid arguments');
     }
+  }
+
+  get catalog () {
+    if (!this._catalog) {
+      const copy = Object.assign ({}, this._items);
+      this._catalog = Object.freeze (copy);
+    }
+    return this._catalog;
   }
 }
 

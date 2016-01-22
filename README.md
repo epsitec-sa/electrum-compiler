@@ -62,3 +62,18 @@ was successful. Otherwise, the error message is stored in `error`.
 
 Note that the position in the error message will be offset by one line, as
 `build()` prepends some code to the given input source.
+
+## Accessing the catalog
+
+Items registered on the compiler with `register()` are stored in a _catalog_.
+The catalog can be retrieved through the `catalog` getter:
+
+```javascript
+let compiler = new Compiler ();
+
+compiler.register ('x', {a: 1});
+compiler.register ('y', {b: 2});
+
+expect (compiler.catalog.x).to.have.property ('a', 1);
+expect (compiler.catalog.y).to.have.property ('b', 2);
+```
