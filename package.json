@@ -30,8 +30,8 @@
     "generic-js-env": "^1.1.0",
     "mai-chai": "^2.4.0",
     "require-self": "^0.1.0",
-    "rimraf": "^2.5.0",
-    "webpack": "^1.12.11"
+    "rimraf": "^2.5.2",
+    "webpack": "^1.12.14"
   },
   "dependencies": {
     "babel-standalone": "^6.6.5"
