@@ -1,7 +1,7 @@
 'use strict';
 
 import {expect} from 'mai-chai';
-import {Compiler} from '../index.js';
+import {Compiler} from 'electrum-compiler';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
