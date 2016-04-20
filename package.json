@@ -1,6 +1,6 @@
 {
   "name": "electrum-compiler",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Run-time compiler for Electrum-enabled React components.",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/epsitec-sa/electrum-compiler#readme",
   "peerDependencies": {
-    "electrum": "^3.1.0"
+    "electrum": "^3.2.0"
   },
   "devDependencies": {
     "babel-env": "^1.2.2",
