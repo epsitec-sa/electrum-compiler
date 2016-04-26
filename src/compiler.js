@@ -30,10 +30,10 @@ export default class Compiler {
     return result.code;
   }
 
-  build (name, source) {
+  build (name, source, locals) {
     var Electrum = imports.Electrum;
     var React = imports.React;
-    var components = this._items;
+    var components = {...this._items, ...locals};
     var sourceVar =
       components.justToMakeSureThisDoesNotGetOptimizedAway ||
       Electrum.justToMakeSureThisDoesNotGetOptimizedAway ||

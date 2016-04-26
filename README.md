@@ -14,6 +14,10 @@ directly from source code.
 
 ## Transform JavaScript to ES5
 
+To transform JavaScript to ES5, use:
+
+* `transform(input)` &rarr; produces ES5 output based on the JavaScript `source`.
+
 ```javascript
 let input = 'const greet = x => `Hello ${x}.`;';
 let compiler = new Compiler ();
@@ -22,6 +26,15 @@ let source = compiler.transform (input);
 ```
 
 ## Build Electrum-enabled React component
+
+To build an Electrum-enabled React component, use:
+
+* `build(name, input)` &rarr; produces a component description; the name of the
+  compoment will be `name` and its source code defined by `input`, which must
+  be a source containing a class definition.
+* `build(name, input, locals)` &rarr; same as above, but inject the key/value
+  pairs found in `locals` into the compilation context.
+
 
 ```javascript
 let input = 'class extends React.Component { render() { return <div>Hi.</div>; } }';

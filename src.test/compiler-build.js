@@ -72,7 +72,7 @@ describe ('Compiler', () => {
       expect (html).to.equal ('<span>?</span>');
     });
 
-    it ('', () => {
+    it ('builds Electrum component from class, using external component <Button> and variable \'text\'', () => {
       const source = 'class extends React.Component { render() { return <Button>{text}</Button>; }}';
       const compiler = new Compiler ();
       compiler.register (Button);
@@ -83,6 +83,19 @@ describe ('Compiler', () => {
 
       expect (html).to.equal ('<div>Hello</div>');
     });
+
+    it ('builds Electrum component from class, overriding external component', () => {
+      const source = 'class extends React.Component { render() { return <Button message="x"/>; }}';
+      const compiler = new Compiler ();
+      compiler.register ('Button', Button);
+
+      // Replace Button with <Bar>
+      const Foo = compiler.build ('Foo', source, {Button: Bar}).component;
+      const html = ReactDOMServer.renderToStaticMarkup (<Foo />);
+
+      expect (html).to.equal ('<span>x</span>');
+    });
+
   });
 });
 
