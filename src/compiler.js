@@ -30,7 +30,7 @@ export default class Compiler {
     return result.code;
   }
 
-  build (name, source, locals) {
+  build (name, source, locals, more) {
     var Electrum = imports.Electrum;
     var React = imports.React;
     var components = {...this._items, ...locals};
@@ -44,12 +44,16 @@ export default class Compiler {
       sourceVar = sourceVar + `const ${key} = components.${key};`;
     }
 
+    if (typeof (more) === 'undefined') {
+      more = '{}';
+    }
+
     try {
       // In this scope, we need Electrum, React, components and sourceVar.
       // They are referenced from within the source code passed to eval and
       // must therefore exist in the scope.
       const input  = `${sourceVar}Electrum.wrap ("${name}", (
-${source}));`;
+${source}), (${more}));`;
       const output = this.transform (input);
       const result = eval (output); // jshint ignore:line
       return {

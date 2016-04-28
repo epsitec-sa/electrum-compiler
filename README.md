@@ -34,6 +34,9 @@ To build an Electrum-enabled React component, use:
   be a source containing a class definition.
 * `build(name, input, locals)` &rarr; same as above, but inject the key/value
   pairs found in `locals` into the compilation context.
+* `build(name, input, locals, more)` &rarr; same as above, `more` represents
+  additional source code which will be provided to `Electrum.wrap()` as the
+  `more` argument (it can be used to bind the component with styles).
 
 
 ```javascript
