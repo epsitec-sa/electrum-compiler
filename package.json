@@ -24,10 +24,10 @@
     "electrum": "^4.3.0"
   },
   "devDependencies": {
-    "babel-env": "^1.2.2",
+    "babel-env": "^1.3.0",
     "babel-loader": "^6.2.4",
-    "electrum": "^4.3.0",
-    "generic-js-env": "^1.3.2",
+    "electrum": "^4.8.1",
+    "generic-js-env": "^1.5.0",
     "mai-chai": "^2.6.0",
     "require-self": "^0.1.0",
     "rimraf": "^2.5.2",
