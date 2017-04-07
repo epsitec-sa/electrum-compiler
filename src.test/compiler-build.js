@@ -1,4 +1,4 @@
-'use strict';
+/* global describe it */
 
 import {expect} from 'mai-chai';
 import {Compiler} from 'electrum-compiler';
@@ -28,11 +28,13 @@ describe ('Compiler', () => {
       const compiler = new Compiler ();
       const source = 'clasx extends React.Component {render () {return <div>Hi.</div>;}}';
       //              0123456
-      //                    ^ Unexpected token here
+      //                    ^ The unexpected token is here
       const result = compiler.build ('Foo', source);
-
       expect (result.component).to.not.exist ();
-      expect (result.error).to.startWith ('unknown: Unexpected token (2:6)');
+
+      const lines = result.error.split ('|');
+      expect (lines.length).to.equal (4);
+      expect (lines[0]).to.startWith ('unknown: Unexpected token, expected , (2:6)');
     });
   });
 
@@ -73,24 +75,24 @@ describe ('Compiler', () => {
     });
 
     it ('builds Electrum component from class, using external component <Button> and variable \'text\'', () => {
-      const source = 'class extends React.Component { render() { return <Button>{text}</Button>; }}';
+      const source1 = 'class extends React.Component { render() { return <Button>{text}</Button>; }}';
       const compiler = new Compiler ();
       compiler.register (Button);
       compiler.register ('text', 'Hello');
 
-      const Foo = compiler.build ('Foo', source).component;
+      const Foo = compiler.build ('Foo', source1).component;
       const html = ReactDOMServer.renderToStaticMarkup (<Foo />);
 
       expect (html).to.equal ('<div>Hello</div>');
     });
 
     it ('builds Electrum component from class, overriding external component', () => {
-      const source = 'class extends React.Component { render() { return <Button message="x"/>; }}';
+      const source1 = 'class extends React.Component { render() { return <Button message="x"/>; }}';
       const compiler = new Compiler ();
       compiler.register ('Button', Button);
 
       // Replace Button with <Bar>
-      const Foo = compiler.build ('Foo', source, {Button: Bar}).component;
+      const Foo = compiler.build ('Foo', source1, {Button: Bar}).component;
       const html = ReactDOMServer.renderToStaticMarkup (<Foo />);
 
       expect (html).to.equal ('<span>x</span>');
