@@ -1,6 +1,6 @@
 {
   "name": "electrum-compiler",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Run-time compiler for Electrum-enabled React components.",
   "main": "lib/index.js",
   "scripts": {
@@ -24,16 +24,16 @@
     "electrum": "^4.3.0"
   },
   "devDependencies": {
-    "babel-env": "^1.3.0",
-    "babel-loader": "^6.2.4",
-    "electrum": "^4.8.1",
-    "generic-js-env": "^1.5.0",
-    "mai-chai": "^2.6.0",
+    "babel-env": "^2.4.0",
+    "babel-loader": "^6.4.1",
+    "electrum": "^4.20.0",
+    "generic-js-env": "^2.2.4",
+    "mai-chai": "^3.3.2",
     "require-self": "^0.1.0",
-    "rimraf": "^2.5.2",
-    "webpack": "^1.13.0"
+    "rimraf": "^2.6.1",
+    "webpack": "^2.3.3"
   },
   "dependencies": {
-    "babel-standalone": "^6.7.7"
+    "babel-standalone": "^6.24.0"
   }
 }
